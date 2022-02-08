@@ -14,7 +14,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 import os
 # Activate Django-Heroku.
 import django_heroku
-
+import dj_database_url
 
 PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASE_DIR = os.path.dirname(PROJECT_DIR)
@@ -34,6 +34,7 @@ STATICFILES_DIRS = (
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 
+ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
