@@ -1,0 +1,261 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% load wagtailcore_tags wagtailimages_tags%}
+
+{% block body_class %}template-homepage{% endblock %}
+
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>{{page.title}}</title>
+        <!-- Favicon-->
+        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+    
+    </head>
+    <body style="margin: 0px;">
+        <!-- Responsive navbar-->
+        
+        <nav class="navbar navbar-expand-lg">
+            <div class="container">
+                <a class="navbar-brand" href="#!" style="color: deeppink; font-weight: bolder;"><img src="{% static 'assets/MomsAndMidwives-02 2.png' %}" height="120"></a>
+                <button class="navbar-toggler" type="button"   style="background-color: deeppink;" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0"> 
+                        <li class="nav-item"><a style="color: rgb(39, 7, 54);" class="nav-link" href="/">Home</a></li>
+                        <li class="nav-item"><a style="color: rgb(87, 18, 55);" class="nav-link" href="#!">Midwife</a></li>
+                        <li class="nav-item" ><a style="color: deeppink;" class="nav-link active" aria-current="page" href="/blogs">Blog</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- Page header with logo and tagline-->
+        <header>
+            <div class="container">
+                <div class="text-center my-5">
+                    <h1 class="fw-bolder">{{page.title}}</h1>
+                    
+                </div>
+            </div>
+        </header>
+        <!-- Page content-->
+        <div class="container">
+            <div class="row">
+                <!-- Blog entries-->
+                <div class="col-lg-9">
+                    <!-- Featured blog post-->
+                    <div class="card mb-4">
+                        <!-- /media/images/{{ self.next_port.specific.thumbnail }}" -->
+                        <!-- <a href="#!"><img class="card-img-top" src="/media/images/{{ page.image.specific.thumbnail }}" height=350px alt="..." /></a> -->
+                     
+                        {% image page.image fill-850x350 as tmp_photo %}
+
+                        <a href="#!"><img class="card-img-top" src="{{ tmp_photo.url }}" height=350px alt="..." /></a>
+   
+                        <div class="card-body">
+                          <h1 class="card-title" style="text-align: center;">{{page.intro}}</h1>
+                        <div class="row" style="align-items: space-between; flex-wrap: wrap;">
+                            <div class="col-lg-6">
+                            <div class="small text-muted">{{page.date}}</div>
+                          </div>     
+                        
+                          <div class="col-lg-6" >
+                            <div class="small text-muted"  style="float:right">{{page.read_time|richtext}}</div>
+                          </div>  
+                        </div>  
+                          <hr /> 
+
+                            <p class="card-text">{{page.body|richtext}}</p>
+                            </p>
+
+                            <div class="row">
+                              <h5 class="card-title">{{page.int_section_title|richtext}}</h5>
+                              <p class="card-text">{{page.int_section_body|richtext}}</p>
+                              </p>
+                            </div>
+                            
+                        </div>
+                       
+                        
+                    </div> 
+                 
+                       
+                        
+                          <center>
+                            <div class="row" style="align-items: space-between; flex-wrap: wrap;">
+                                <div class="col-lg-6">
+                                    <h5> 
+                                        <a style="color:rgb(218, 2, 135)" class="" href=""><strong>Previous:</strong> </a> <em style="color:rgb(218, 2, 135)"> tatibus possimus, veniam ma </em>
+                                    </h5>
+                              </div>     
+                            
+                              <div class="col-lg-6" >
+                                <h5> 
+                                    <a style="color:rgb(218, 2, 135)" class="" href=""><strong>Next:</strong> </a> <em style="color:rgb(218, 2, 135)"> tatibus possimus, veniam ma </em>
+                                </h5>                              
+                            </div>  
+                            </div>  
+                          </center>
+                            
+                            
+                           
+                    
+                    
+                    <br />
+                    <br/>
+                    <!-- Nested row for non-featured blog posts-->
+                    <center>
+                        <h2 class="card-title h4">Related Articles</h2>
+                    </center>
+                    <br />
+                    <br/>
+                    <div class="row">
+                        {% for post in page.blogs  %}
+                                {% with post=post.specific %}
+                        <div class="col-lg-4">
+                            <!-- Blog post-->
+                            <div class="card lg-4">
+                                {% with post.main_image as main_image %}
+                                    {% if main_image %}
+                                        {% image main_image scale-110 as tmp_photo %}
+                                
+
+                                <a href="{% pageurl post %}"><img class="card-img-top" src="{{ tmp_photo.url }}" width="90px" height=250px alt="..." /></a>
+                                    {% endif %}
+                                {% endwith %}
+                                <div class="card-body">
+                                
+                                    <h2 class="card-title h5">{{ post.intro }}</h2>
+                                    <div class="row" style="align-items: space-between; flex-wrap: wrap;">
+                                        <div class="col-lg-6">
+                                        <div class="small text-muted">{{post.date}}</div> 
+                                      </div>     
+                                    
+                                      <div class="col-lg-6" >
+                                        <div class="small text-muted"  style="float:right">{{post.read_time|richtext}}</div>
+                                      </div>  
+                                    </div> 
+                                </div>
+                            </div>
+                          
+                        </div>
+                            
+                        {% endwith %}
+                    {% endfor %}
+                       
+                    </div>
+                    
+                </div>
+                
+                <!-- Side widgets-->
+                <div class="col-lg-3">
+ 
+                    <!-- Categories widget-->
+            
+             <div class="card mb-4">
+                        <div class="card-header">Other Articles in this Categories</div>
+                        <div class="card-body">
+                            <div class="row">
+                            {% for post in blogpages %}
+                                {% with post=post.specific %}
+                                <div class="col-lg-12">
+                                    <ul class="mb-0">
+                                        <li><a href="{% pageurl post %}">{{ post.title }}</a></li>
+    
+                                    </ul>
+                                </div>
+                                {% endwith %}
+                            {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+
+                    <br />
+                    <br />
+                   
+                          
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                    <!-- Search widget--> 
+                     <div class="card mb-3" style="background:linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url(static/assets/side.png); background-repeat: no-repeat; background-size:100%;background-position: center center;">
+
+                            <center>
+                            <img src="{% static 'assets/MomsAndMidwives-02 2.png' %}" height="120"></a>
+
+                            </center>   
+                            <br />
+                            <br />
+                            <br />
+                             <br />
+                            
+                            <br />
+                            <div style="text-align:center; color:white">
+                                <strong><h1>Join The</strong><h1></h1>
+                                <strong><h1>Squad</strong><h1></h1>
+                            </div>     
+                            <br />
+                            <br />
+                            <br />
+
+                            <center>
+                            <img src="{% static 'assets/Android.png' %}" height="50" width="140"></a>
+
+                            </center>   
+                            <br />   
+                            <br />
+                           
+                                                
+                            <center>
+                            <img src="{% static 'assets/App_Store_logo.png' %}" height="50" width="140"></a>
+
+                            </center>
+                            
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                            
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                        <!-- </div> -->
+                        
+
+                    </div>
+            
+                 
+                </div>
+            </div>
+        </div>
+        <!-- Footer-->
+        <footer class="py-5" style="background-color: deeppink;">
+            <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Moms&Midwives 2021</p></div>
+        </footer>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="{% static 'js/scripts.js' %}"></script>
+
+    </body>
+</html>
+
+
+{% endblock %}
+
+
